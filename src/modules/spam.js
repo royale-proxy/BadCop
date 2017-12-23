@@ -1,5 +1,5 @@
 module.exports = function(client, redis, context) {
-  client.on('normal', async (message) => {
+  client.on('message', async (message) => {
     // Ignore if it's a bot, DM, or admin
     if (
       message.author.bot ||
