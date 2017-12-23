@@ -8,7 +8,7 @@ module.exports = function(client, redis, context) {
 
       // If they're restricted, ignore
       if(message.member.roles.has(context.restrictedRoleId)) {
-        message.delete();
+        // message.delete();
         return;
       }
 
@@ -38,8 +38,8 @@ module.exports = function(client, redis, context) {
         }
         break;
       default:
-        message.channel.send('Not a command');
-        message.delete();
+        // message.channel.send('Not a command');
+        // message.delete();
         break;
       }
   });
