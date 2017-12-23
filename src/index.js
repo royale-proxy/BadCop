@@ -24,13 +24,21 @@ async function main() {
 
   // Register all modules
   const modules = requireIndex(path.join(__dirname, 'modules'));
+  const context = { };
 
   Object.keys(modules)
         .filter(name => modules[name] != undefined)
-        .forEach(name => modules[name](client, redis));
+        .forEach(name => modules[name](client, redis, context));
 
   client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    client.user.setGame(`${require('../package.json').version}`);
+
+    const guild = client.guilds.get(process.env.OPTIONS_GUILD_ID);
+
+    context.adminRoleId = guild.roles.find('name', 'Administrators').id;
+    // context.moderatorRoleId = guild.roles.find('name', 'Moderators').id;
+    context.restrictedRoleId = guild.roles.find('name', 'Restricted').id;
   });
 
   // Login; ensure that you've set DISCORD_TOKEN in .env
